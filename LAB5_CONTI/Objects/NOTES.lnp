@@ -1,0 +1,3 @@
+".\Objects\NOTES.obj" 
+TO ".\Objects\NOTES" 
+PRINT(".\Listings\NOTES.m51") RAMSIZE(256) 

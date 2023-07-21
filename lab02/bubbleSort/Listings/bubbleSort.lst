@@ -1,0 +1,107 @@
+A51 MACRO ASSEMBLER  BUBBLESORT                                                           01/15/2023 18:44:56 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\bubbleSort.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE bubbleSort.asm SET(SMALL) DEBUG PRINT(.\Listings\bubbleSort.lst) OBJECT
+                      (.\Objects\bubbleSort.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL SORT
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+                       8     
+                       9     
+0130                  10     SORT:
+0130 7B08             11     MOV R3, #08H
+0132 5001             12     JNC OUTERLOOP
+0134 22               13     RET
+                      14     
+0135                  15     OUTERLOOP:
+0135 DB1E             16     DJNZ R3, INITIALIZE
+0137 8000             17     JMP ASSIGN
+                      18     
+0139                  19     ASSIGN:
+0139 7860             20     MOV R0, #60H
+013B 8670             21     MOV 70H, @R0
+013D 08               22     INC R0
+013E 8671             23     MOV 71H, @R0
+0140 08               24     INC R0
+0141 8672             25     MOV 72H, @R0
+0143 08               26     INC R0
+0144 8673             27     MOV 73H, @R0
+0146 08               28     INC R0
+0147 8674             29     MOV 74H, @R0
+0149 08               30     INC R0
+014A 8675             31     MOV 75H, @R0
+014C 08               32     INC R0
+014D 8676             33     MOV 76H, @R0
+014F 08               34     INC R0
+0150 8677             35     MOV 77H, @R0
+0152 D3               36     SETB C
+0153 80DB             37     JMP SORT
+                      38     
+0155                  39     INITIALIZE:
+0155 7860             40     MOV R0, #60H
+0157 7961             41     MOV R1, #61H
+0159 7C08             42     MOV R4, #08H
+                      43     
+015B                  44     INNERLOOP:
+015B DC02             45     DJNZ R4, SWAPCHECK
+015D 80D6             46     JMP OUTERLOOP
+                      47     
+015F                  48     SWAPCHECK:
+015F E6               49     MOV A, @R0
+0160 87F0             50     MOV B, @R1
+0162 95F0             51     SUBB A, B
+0164 5004             52     JNC SWAPF
+                      53     
+0166                  54     INCREMENT:
+0166 08               55     INC R0
+0167 09               56     INC R1
+0168 80F1             57     JMP INNERLOOP
+A51 MACRO ASSEMBLER  BUBBLESORT                                                           01/15/2023 18:44:56 PAGE     2
+
+                      58     
+016A                  59     SWAPF:
+016A E6               60     MOV A, @R0
+016B 87F0             61     MOV B, @R1
+016D FA               62     MOV R2, A
+016E E5F0             63     MOV A, B
+0170 8AF0             64     MOV B, R2
+0172 F6               65     MOV @R0, A
+0173 A7F0             66     MOV @R1, B
+0175 80EF             67     JMP INCREMENT
+                      68     
+                      69     
+                      70     END
+A51 MACRO ASSEMBLER  BUBBLESORT                                                           01/15/2023 18:44:56 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ASSIGN . . . . . .  C ADDR   0139H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+INCREMENT. . . . .  C ADDR   0166H   A   
+INITIALIZE . . . .  C ADDR   0155H   A   
+INNERLOOP. . . . .  C ADDR   015BH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+OUTERLOOP. . . . .  C ADDR   0135H   A   
+SORT . . . . . . .  C ADDR   0130H   A   
+SWAPCHECK. . . . .  C ADDR   015FH   A   
+SWAPF. . . . . . .  C ADDR   016AH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

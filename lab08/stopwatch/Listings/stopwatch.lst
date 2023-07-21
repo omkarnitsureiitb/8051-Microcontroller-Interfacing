@@ -1,0 +1,124 @@
+C51 COMPILER V9.60.7.0   STOPWATCH                                                         03/13/2023 14:36:30 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE STOPWATCH
+OBJECT MODULE PLACED IN .\Objects\stopwatch.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE stopwatch.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings
+                    -\stopwatch.lst) TABS(2) OBJECT(.\Objects\stopwatch.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"
+   3          
+   4          sbit start = P1^0;
+   5          sbit LED1=P3^6;
+   6          int minutes, seconds,upper, lower, dummy[4],i;
+   7          unsigned char display_msg[10] = "0123456789", display3[1]=":";
+   8          
+   9          void display(){
+  10   1        dummy[0] = minutes/10;
+  11   1        dummy[1] = minutes - 10*(minutes/10);
+  12   1        dummy[2] = seconds/10;
+  13   1        dummy[3] = seconds - 10*(seconds/10);
+  14   1        
+  15   1        lcd_cmd(0x80);
+  16   1        msdelay(4);
+  17   1        for(i = 0; i < 4; i++){
+  18   2          if(i == 2){
+  19   3            lcd_write_char(display3[0]);
+  20   3            lcd_cmd(0x06);
+  21   3          }
+  22   2          if(dummy[i] == 0){
+  23   3            lcd_write_char(display_msg[0]);
+  24   3            lcd_cmd(0x06);
+  25   3          }
+  26   2          else if(dummy[i] == 1){
+  27   3            lcd_write_char(display_msg[1]);
+  28   3            lcd_cmd(0x06);
+  29   3          }
+  30   2          else if(dummy[i] == 2){
+  31   3            lcd_write_char(display_msg[2]);
+  32   3            lcd_cmd(0x06);
+  33   3          }
+  34   2          else if(dummy[i] == 3){
+  35   3            lcd_write_char(display_msg[3]);
+  36   3            lcd_cmd(0x06);
+  37   3          }
+  38   2          else if(dummy[i] == 4){
+  39   3            lcd_write_char(display_msg[4]);
+  40   3            lcd_cmd(0x06);
+  41   3          }
+  42   2          else if(dummy[i] == 5){
+  43   3            lcd_write_char(display_msg[5]);
+  44   3            lcd_cmd(0x06);
+  45   3          }
+  46   2          else if(dummy[i] == 6){
+  47   3            lcd_write_char(display_msg[6]);
+  48   3            lcd_cmd(0x06);
+  49   3          }
+  50   2          else if(dummy[i] == 7){
+  51   3            lcd_write_char(display_msg[7]);
+  52   3            lcd_cmd(0x06);
+  53   3          }
+  54   2          else if(dummy[i] == 8){
+C51 COMPILER V9.60.7.0   STOPWATCH                                                         03/13/2023 14:36:30 PAGE 2   
+
+  55   3            lcd_write_char(display_msg[8]);
+  56   3            lcd_cmd(0x06);
+  57   3          }
+  58   2          else if(dummy[i] == 9){
+  59   3            lcd_write_char(display_msg[9]);
+  60   3            lcd_cmd(0x06);
+  61   3          }
+  62   2        }
+  63   1      }
+  64          
+  65          void read(){
+  66   1        upper = TH0;
+  67   1        lower = TL0;
+  68   1        while(upper!=TH0){
+  69   2          upper = TH0;
+  70   2          lower = TL0;
+  71   2        }
+  72   1        return;
+  73   1      }
+  74            
+  75          void counter(bit start){
+  76   1        if(start == 0){
+  77   2          TR0 = 0;
+  78   2          return;
+  79   2        }
+  80   1        else{
+  81   2          TR0 = 1;
+  82   2          read();
+  83   2          minutes = (lower + 256*upper)/3600;
+  84   2          seconds = ((lower + 256*upper) - (3600*minutes))/60;
+  85   2          display();
+  86   2          return;
+  87   2        }
+  88   1      }
+  89          
+  90          void main(){
+  91   1        TMOD = 0x05;
+  92   1        TH0 = 0x00;
+  93   1        TL0 = 0x00;
+  94   1        lcd_init();
+  95   1        while(1){
+  96   2          counter(start);
+  97   2        }
+  98   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    559    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     29    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----       1
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

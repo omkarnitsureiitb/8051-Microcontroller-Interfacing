@@ -1,0 +1,59 @@
+A51 MACRO ASSEMBLER  DETERMINANT                                                          01/15/2023 18:51:41 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\determinant.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE determinant.asm SET(SMALL) DEBUG PRINT(.\Listings\determinant.lst) OBJE
+                      CT(.\Objects\determinant.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL DET
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+                       8     
+                       9     
+0130                  10     DET:
+0130 E560             11     MOV A, 60H
+0132 8563F0           12     MOV B, 63H
+0135 A4               13     MUL AB
+0136 85F064           14     MOV 64H, B
+0139 F565             15     MOV 65H, A
+013B E561             16     MOV A, 61H
+013D 8562F0           17     MOV B, 62H
+0140 A4               18     MUL AB
+0141 85F066           19     MOV 66H, B
+0144 F567             20     MOV 67H, A
+0146 E565             21     MOV A, 65H
+0148 8567F0           22     MOV B, 67H
+014B 95F0             23     SUBB A, B
+014D F571             24     MOV 71H, A
+014F E564             25     MOV A, 64H
+0151 8566F0           26     MOV B, 66H
+0154 95F0             27     SUBB A, B
+0156 F570             28     MOV 70H, A
+0158 22               29     RET
+                      30     
+                      31     END
+A51 MACRO ASSEMBLER  DETERMINANT                                                          01/15/2023 18:51:41 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+DET. . . . . . . .  C ADDR   0130H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

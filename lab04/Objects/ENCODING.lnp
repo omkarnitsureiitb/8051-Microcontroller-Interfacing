@@ -1,0 +1,3 @@
+".\Objects\ENCODING.obj" 
+TO ".\Objects\ENCODING" 
+PRINT(".\Listings\ENCODING.m51") RAMSIZE(256) 

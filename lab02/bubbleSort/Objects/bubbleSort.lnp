@@ -1,0 +1,3 @@
+".\Objects\bubbleSort.obj" 
+TO ".\Objects\bubbleSort" 
+PRINT(".\Listings\bubbleSort.m51") RAMSIZE(256) 

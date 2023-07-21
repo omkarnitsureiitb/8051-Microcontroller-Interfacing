@@ -1,0 +1,88 @@
+A51 MACRO ASSEMBLER  MOVING_AVERAGE_FILTER                                                01/18/2023 20:01:30 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Moving_Average_Filter.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Moving_Average_Filter.asm SET(SMALL) DEBUG PRINT(.\Listings\Moving_Aver
+                      age_Filter.lst) OBJECT(.\Objects\Moving_Average_Filter.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL FILT
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+                       8     
+                       9     
+0130                  10     FILT:
+0130 5001             11     JNC INITIALIZE
+0132 22               12     RET
+                      13     
+0133                  14     INITIALIZE:
+0133 755D00           15     MOV 5DH, #00H
+0136 755E00           16     MOV 5EH, #00H
+0139 755F00           17     MOV 5FH, #00H
+013C 785D             18     MOV R0, #5DH
+013E 7970             19     MOV R1, #70H
+0140 7E09             20     MOV R6, #09H
+                      21     
+0142                  22     LOOP:
+0142 DE03             23     DJNZ R6, ASSIGN
+0144 D3               24     SETB C
+0145 80E9             25     JMP FILT
+                      26     
+0147                  27     ASSIGN:
+0147 86F0             28     MOV B, @R0
+0149 AAF0             29     MOV R2, B
+014B 08               30     INC R0
+014C E8               31     MOV A, R0
+014D 86F0             32     MOV B, @R0
+014F ABF0             33     MOV R3, B
+0151 08               34     INC R0
+0152 86F0             35     MOV B, @R0
+0154 ACF0             36     MOV R4, B
+0156 08               37     INC R0
+0157 86F0             38     MOV B, @R0
+0159 ADF0             39     MOV R5, B
+015B F8               40     MOV R0, A
+                      41     
+015C                  42     CALC:
+015C EA               43     MOV A, R2
+015D 2B               44     ADD A, R3
+015E 2C               45     ADD A, R4
+015F 2D               46     ADD A, R5
+0160 75F004           47     MOV B, #04H
+0163 84               48     DIV AB
+                      49     
+0164                  50     STORE:
+0164 F7               51     MOV @R1, A
+0165 09               52     INC R1
+0166 80DA             53     JMP LOOP
+                      54     
+                      55     END
+A51 MACRO ASSEMBLER  MOVING_AVERAGE_FILTER                                                01/18/2023 20:01:30 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ASSIGN . . . . . .  C ADDR   0147H   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+CALC . . . . . . .  C ADDR   015CH   A   
+FILT . . . . . . .  C ADDR   0130H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+INITIALIZE . . . .  C ADDR   0133H   A   
+LOOP . . . . . . .  C ADDR   0142H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+STORE. . . . . . .  C ADDR   0164H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

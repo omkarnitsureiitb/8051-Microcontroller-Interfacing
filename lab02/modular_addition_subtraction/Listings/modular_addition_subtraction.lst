@@ -1,0 +1,74 @@
+A51 MACRO ASSEMBLER  MODULAR_ADDITION_SUBTRACTION                                         01/15/2023 19:03:51 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\modular_addition_subtraction.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE modular_addition_subtraction.asm SET(SMALL) DEBUG PRINT(.\Listings\modu
+                      lar_addition_subtraction.lst) OBJECT(.\Objects\modular_addition_subtraction.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 7961              5     MOV R1, #61H
+0102 3130              6     CALL MODADD
+0104 313C              7     CALL MODSUB
+0106 80FE              8     HERE: SJMP HERE
+0130                   9     ORG 130H
+                      10     
+                      11     
+0130                  12     MODADD:
+0130 E570             13     MOV A, 70H
+0132 89F0             14     MOV B, R1
+0134 2571             15     ADD A, 71H
+0136 84               16     DIV AB
+0137 85F072           17     MOV 72H, B
+013A C3               18     CLR C
+013B 22               19     RET
+                      20     
+013C                  21     MODSUB:
+013C 5001             22     JNC SUBTRACT
+013E 22               23     RET
+                      24     
+013F                  25     SUBTRACT:
+013F E570             26     MOV A, 70H
+0141 89F0             27     MOV B, R1
+0143 9571             28     SUBB A, 71H
+                      29     
+0145                  30     MAINFUNCTION:
+0145 4007             31     JC ADD_DIVISOR
+0147 84               32     DIV AB
+0148 85F073           33     MOV 73H, B
+014B D3               34     SETB C
+014C 80EE             35     JMP MODSUB
+                      36     
+014E                  37     ADD_DIVISOR:
+014E 29               38     ADD A, R1
+014F 80F4             39     JMP MAINFUNCTION
+                      40     
+                      41     
+                      42     END
+A51 MACRO ASSEMBLER  MODULAR_ADDITION_SUBTRACTION                                         01/15/2023 19:03:51 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+ADD_DIVISOR. . . .  C ADDR   014EH   A   
+B. . . . . . . . .  D ADDR   00F0H   A   
+HERE . . . . . . .  C ADDR   0106H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+MAINFUNCTION . . .  C ADDR   0145H   A   
+MODADD . . . . . .  C ADDR   0130H   A   
+MODSUB . . . . . .  C ADDR   013CH   A   
+SUBTRACT . . . . .  C ADDR   013FH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

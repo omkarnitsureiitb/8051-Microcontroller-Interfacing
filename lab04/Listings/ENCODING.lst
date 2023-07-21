@@ -1,0 +1,316 @@
+A51 MACRO ASSEMBLER  ENCODING                                                             01/30/2023 14:32:49 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\ENCODING.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE ENCODING.asm SET(SMALL) DEBUG PRINT(.\Listings\ENCODING.lst) OBJECT(.\O
+                      bjects\ENCODING.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3162              5     CALL TAKE_INP
+0102 5107              6     CALL QUANT_ENC
+0104 515F              7     CALL LED_DISP
+0106 80FE              8     HERE: SJMP HERE
+0130                   9     ORG 130H
+                      10     
+                      11     
+0130                  12     DELAY_5S:
+0130 7D14             13     MOV R5, #20
+                      14     
+0132                  15     L1:
+0132 7CFF             16     MOV R4, #255
+0134 DD01             17     DJNZ R5, L2
+0136 22               18     RET
+                      19     
+0137                  20     L2:
+0137 DC02             21     DJNZ R4, LF
+0139 80F7             22     JMP L1
+                      23     
+013B                  24     LF:
+013B 314E             25     CALL DELAY_1MS
+013D 80F8             26     JMP L2
+                      27     
+013F                  28     DELAY_10S:
+013F 7D27             29     MOV R5, #39
+                      30     
+0141                  31     L_1:
+0141 7CFF             32     MOV R4, #255
+0143 DD01             33     DJNZ R5, L_2
+0145 22               34     RET
+                      35     
+0146                  36     L_2:
+0146 DC02             37     DJNZ R4, L_F
+0148 80F7             38     JMP L_1
+                      39     
+014A                  40     L_F:
+014A 314E             41     CALL DELAY_1MS
+014C 80F8             42     JMP L_2
+                      43     
+014E                  44     DELAY_1MS:
+014E C000             45     PUSH 00H
+0150 7804             46     MOV R0, #4
+0152 3159             47     H2: ACALL DELAY_250US
+0154 D8FC             48     DJNZ R0, H2
+0156 D000             49     POP 00H
+0158 22               50     RET
+                      51     
+0159                  52     DELAY_250US:
+0159 C000             53     PUSH 00H
+015B 78F4             54     MOV R0, #244
+015D D8FE             55     H1: DJNZ R0, H1
+015F D000             56     POP 00H
+0161 22               57     RET
+A51 MACRO ASSEMBLER  ENCODING                                                             01/30/2023 14:32:49 PAGE     2
+
+                      58     
+0162                  59     TAKE_INP:
+0162 759080           60     MOV P1, #80H
+0165 D293             61     SETB P1.3
+0167 D292             62     SETB P1.2
+0169 D291             63     SETB P1.1
+016B D290             64     SETB P1.0
+016D 313F             65     CALL DELAY_10S
+016F E590             66     MOV A, P1
+0171 540F             67     ANL A, #0FH
+0173 C4               68     SWAP A
+                      69     
+                      70     
+0174 759040           71     MOV P1, #40H
+0177 D293             72     SETB P1.3
+0179 D292             73     SETB P1.2
+017B D291             74     SETB P1.1
+017D D290             75     SETB P1.0
+017F 313F             76     CALL DELAY_10S
+0181 8590F0           77     MOV B, P1
+0184 53F00F           78     ANL B, #0FH
+0187 25F0             79     ADD A, B
+0189 F560             80     MOV 60H, A
+                      81     
+                      82     
+018B 7590C0           83     MOV P1, #0C0H
+018E D293             84     SETB P1.3
+0190 D292             85     SETB P1.2
+0192 D291             86     SETB P1.1
+0194 D290             87     SETB P1.0
+0196 313F             88     CALL DELAY_10S
+0198 E590             89     MOV A, P1
+019A 540F             90     ANL A, #0FH
+019C C4               91     SWAP A
+                      92     
+                      93     
+019D 759020           94     MOV P1, #20H
+01A0 D293             95     SETB P1.3
+01A2 D292             96     SETB P1.2
+01A4 D291             97     SETB P1.1
+01A6 D290             98     SETB P1.0
+01A8 313F             99     CALL DELAY_10S
+01AA 8590F0          100     MOV B, P1
+01AD 53F00F          101     ANL B, #0FH
+01B0 25F0            102     ADD A, B
+01B2 F561            103     MOV 61H, A
+                     104     
+                     105     
+01B4 7590A0          106     MOV P1, #0A0H
+01B7 D293            107     SETB P1.3
+01B9 D292            108     SETB P1.2
+01BB D291            109     SETB P1.1
+01BD D290            110     SETB P1.0
+01BF 313F            111     CALL DELAY_10S
+01C1 E590            112     MOV A, P1
+01C3 540F            113     ANL A, #0FH
+01C5 C4              114     SWAP A
+                     115     
+                     116     
+01C6 759060          117     MOV P1, #60H
+01C9 D293            118     SETB P1.3
+01CB D292            119     SETB P1.2
+01CD D291            120     SETB P1.1
+01CF D290            121     SETB P1.0
+01D1 313F            122     CALL DELAY_10S
+01D3 8590F0          123     MOV B, P1
+A51 MACRO ASSEMBLER  ENCODING                                                             01/30/2023 14:32:49 PAGE     3
+
+01D6 53F00F          124     ANL B, #0FH
+01D9 25F0            125     ADD A, B
+01DB F562            126     MOV 62H, A
+                     127     
+                     128     
+01DD 7590E0          129     MOV P1, #0E0H
+01E0 D293            130     SETB P1.3
+01E2 D292            131     SETB P1.2
+01E4 D291            132     SETB P1.1
+01E6 D290            133     SETB P1.0
+01E8 313F            134     CALL DELAY_10S
+01EA E590            135     MOV A, P1
+01EC 540F            136     ANL A, #0FH
+01EE C4              137     SWAP A
+                     138     
+                     139     
+01EF 759010          140     MOV P1, #10H
+01F2 D293            141     SETB P1.3
+01F4 D292            142     SETB P1.2
+01F6 D291            143     SETB P1.1
+01F8 D290            144     SETB P1.0
+01FA 313F            145     CALL DELAY_10S
+01FC 8590F0          146     MOV B, P1
+01FF 53F00F          147     ANL B, #0FH
+0202 25F0            148     ADD A, B
+0204 F563            149     MOV 63H, A
+0206 22              150     RET
+                     151     
+                     152     
+0207                 153     QUANT_ENC:
+0207 5001            154     JNC INITIALIZE
+0209 22              155     RET
+                     156     
+020A                 157     INITIALIZE:
+020A 7A05            158     MOV R2, #05H
+020C 7860            159     MOV R0, #60H
+020E 7964            160     MOV R1, #64H
+                     161     
+0210                 162     QUANT_LOOP:
+0210 DA0B            163     DJNZ R2, QUANT1
+0212 7870            164     MOV R0, #70H
+0214 7964            165     MOV R1, #64H
+0216 7A05            166     MOV R2, #05H
+                     167     
+0218                 168     ENCODE_LOOP:
+0218 DA23            169     DJNZ R2, ENCODE1
+021A D3              170     SETB C
+021B 80EA            171     JMP QUANT_ENC
+                     172     
+021D                 173     QUANT1:
+021D E6              174     MOV A, @R0
+021E 940A            175     SUBB A, #0AH
+0220 7B05            176     MOV R3, #05H
+0222 4012            177     JC STORE_QUANT
+                     178     
+0224                 179     QUANT2:
+0224 E6              180     MOV A, @R0
+0225 9414            181     SUBB A, #14H
+0227 7B0F            182     MOV R3, #0FH
+0229 400B            183     JC STORE_QUANT
+                     184     
+022B                 185     QUANT3:
+022B E6              186     MOV A, @R0
+022C 941E            187     SUBB A, #1EH
+022E 7B19            188     MOV R3, #19H
+0230 4004            189     JC STORE_QUANT
+A51 MACRO ASSEMBLER  ENCODING                                                             01/30/2023 14:32:49 PAGE     4
+
+                     190     
+0232                 191     QUANT4:
+0232 7B23            192     MOV R3, #23H
+0234 8000            193     JMP STORE_QUANT
+                     194     
+0236                 195     STORE_QUANT:
+0236 C3              196     CLR C
+0237 EB              197     MOV A, R3
+0238 F7              198     MOV @R1, A
+0239 08              199     INC R0
+023A 09              200     INC R1
+023B 80D3            201     JMP QUANT_LOOP
+                     202     
+023D                 203     ENCODE1:
+023D E7              204     MOV A, @R1
+023E 9405            205     SUBB A, #05H
+0240 7B80            206     MOV R3, #80H
+0242 6015            207     JZ STORE_ENC
+                     208     
+0244                 209     ENCODE2:
+0244 E7              210     MOV A, @R1
+0245 940F            211     SUBB A, #0FH
+0247 7B40            212     MOV R3, #40H
+0249 600E            213     JZ STORE_ENC
+                     214     
+024B                 215     ENCODE3:
+024B E7              216     MOV A, @R1
+024C 9419            217     SUBB A, #19H
+024E 7B20            218     MOV R3, #20H
+0250 6007            219     JZ STORE_ENC
+                     220     
+0252                 221     ENCODE4:
+0252 E7              222     MOV A, @R1
+0253 9423            223     SUBB A, #23H
+0255 7B10            224     MOV R3, #10H
+0257 6000            225     JZ STORE_ENC
+                     226     
+0259                 227     STORE_ENC:
+0259 EB              228     MOV A, R3
+025A F6              229     MOV @R0, A
+025B 08              230     INC R0
+025C 09              231     INC R1
+025D 80B9            232     JMP ENCODE_LOOP
+                     233     
+                     234     
+025F                 235     LED_DISP:
+025F 7A01            236     MOV R2, #01H
+0261 7870            237     MOV R0, #70H
+0263 7905            238     MOV R1, #05H
+0265 BA0000          239     CJNE R2, #00H, DISP_LOOP
+                     240     
+0268                 241     DISP_LOOP:
+0268 D902            242     DJNZ R1, DISP
+026A 80F3            243     JMP LED_DISP
+                     244     
+026C                 245     DISP:
+026C 8690            246     MOV P1, @R0
+026E 08              247     INC R0
+026F 3130            248     CALL DELAY_5S
+0271 80F5            249     JMP DISP_LOOP
+                     250     
+0273 22              251     RET
+                     252     END
+A51 MACRO ASSEMBLER  ENCODING                                                             01/30/2023 14:32:49 PAGE     5
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+DELAY_10S. . . . .  C ADDR   013FH   A   
+DELAY_1MS. . . . .  C ADDR   014EH   A   
+DELAY_250US. . . .  C ADDR   0159H   A   
+DELAY_5S . . . . .  C ADDR   0130H   A   
+DISP . . . . . . .  C ADDR   026CH   A   
+DISP_LOOP. . . . .  C ADDR   0268H   A   
+ENCODE1. . . . . .  C ADDR   023DH   A   
+ENCODE2. . . . . .  C ADDR   0244H   A   
+ENCODE3. . . . . .  C ADDR   024BH   A   
+ENCODE4. . . . . .  C ADDR   0252H   A   
+ENCODE_LOOP. . . .  C ADDR   0218H   A   
+H1 . . . . . . . .  C ADDR   015DH   A   
+H2 . . . . . . . .  C ADDR   0152H   A   
+HERE . . . . . . .  C ADDR   0106H   A   
+INITIALIZE . . . .  C ADDR   020AH   A   
+L1 . . . . . . . .  C ADDR   0132H   A   
+L2 . . . . . . . .  C ADDR   0137H   A   
+LED_DISP . . . . .  C ADDR   025FH   A   
+LF . . . . . . . .  C ADDR   013BH   A   
+L_1. . . . . . . .  C ADDR   0141H   A   
+L_2. . . . . . . .  C ADDR   0146H   A   
+L_F. . . . . . . .  C ADDR   014AH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+QUANT1 . . . . . .  C ADDR   021DH   A   
+QUANT2 . . . . . .  C ADDR   0224H   A   
+QUANT3 . . . . . .  C ADDR   022BH   A   
+QUANT4 . . . . . .  C ADDR   0232H   A   
+QUANT_ENC. . . . .  C ADDR   0207H   A   
+QUANT_LOOP . . . .  C ADDR   0210H   A   
+STORE_ENC. . . . .  C ADDR   0259H   A   
+STORE_QUANT. . . .  C ADDR   0236H   A   
+TAKE_INP . . . . .  C ADDR   0162H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

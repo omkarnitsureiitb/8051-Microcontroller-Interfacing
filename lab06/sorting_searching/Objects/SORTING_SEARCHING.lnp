@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\sorting_searching.obj" 
+TO ".\Objects\SORTING_SEARCHING" 
+PRINT(".\Listings\SORTING_SEARCHING.m51") RAMSIZE(256) 

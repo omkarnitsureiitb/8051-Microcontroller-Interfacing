@@ -1,0 +1,88 @@
+A51 MACRO ASSEMBLER  QUANTIZATION                                                         01/18/2023 19:22:07 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\Quantization.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE Quantization.asm SET(SMALL) DEBUG PRINT(.\Listings\Quantization.lst) OB
+                      JECT(.\Objects\Quantization.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL QUANT
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+                       8     
+                       9     
+0130                  10     QUANT:
+0130 5001             11     JNC INITIALIZE
+0132 22               12     RET
+                      13     
+0133                  14     INITIALIZE:
+0133 7A09             15     MOV R2, #09H
+0135 7860             16     MOV R0, #60H
+0137 7970             17     MOV R1, #70H
+                      18     
+0139                  19     LOOP:
+0139 DA03             20     DJNZ R2, QUANT1
+013B D3               21     SETB C
+013C 80F2             22     JMP QUANT
+                      23     
+013E                  24     QUANT1:
+013E E6               25     MOV A, @R0
+013F 940A             26     SUBB A, #0AH
+0141 7B05             27     MOV R3, #05H
+0143 4012             28     JC STORE
+                      29     
+0145                  30     QUANT2:
+0145 E6               31     MOV A, @R0
+0146 9414             32     SUBB A, #14H
+0148 7B0F             33     MOV R3, #0FH
+014A 400B             34     JC STORE
+                      35     
+014C                  36     QUANT3:
+014C E6               37     MOV A, @R0
+014D 941E             38     SUBB A, #1EH
+014F 7B19             39     MOV R3, #19H
+0151 4004             40     JC STORE
+                      41     
+0153                  42     QUANT4:
+0153 7B23             43     MOV R3, #23H
+0155 8000             44     JMP STORE
+                      45     
+0157                  46     STORE:
+0157 C3               47     CLR C
+0158 EB               48     MOV A, R3
+0159 F7               49     MOV @R1, A
+015A 08               50     INC R0
+015B 09               51     INC R1
+015C 80DB             52     JMP LOOP
+                      53     
+                      54     END
+A51 MACRO ASSEMBLER  QUANTIZATION                                                         01/18/2023 19:22:07 PAGE     2
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+HERE . . . . . . .  C ADDR   0102H   A   
+INITIALIZE . . . .  C ADDR   0133H   A   
+LOOP . . . . . . .  C ADDR   0139H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+QUANT. . . . . . .  C ADDR   0130H   A   
+QUANT1 . . . . . .  C ADDR   013EH   A   
+QUANT2 . . . . . .  C ADDR   0145H   A   
+QUANT3 . . . . . .  C ADDR   014CH   A   
+QUANT4 . . . . . .  C ADDR   0153H   A   
+STORE. . . . . . .  C ADDR   0157H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

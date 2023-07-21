@@ -1,0 +1,190 @@
+A51 MACRO ASSEMBLER  NOTES                                                                02/06/2023 15:51:03 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\NOTES.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE NOTES.asm SET(SMALL) DEBUG PRINT(.\Listings\NOTES.lst) OBJECT(.\Objects
+                      \NOTES.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 8056              5     JMP TAKE_INP
+                       6     
+0130                   7     ORG 130H
+                       8             
+0130                   9     DELAY_1MS:
+0130 C000             10     PUSH 00H
+0132 7804             11     MOV R0, #4
+0134 313B             12     H2: ACALL DELAY_250US
+0136 D8FC             13     DJNZ R0, H2
+0138 D000             14     POP 00H
+013A 22               15     RET
+                      16     
+013B                  17     DELAY_250US:
+013B C000             18     PUSH 00H
+013D 78F4             19     MOV R0, #244
+013F D8FE             20     H1: DJNZ R0, H1
+0141 D000             21     POP 00H
+0143 22               22     RET
+                      23     
+0144                  24     DELAY_5S:
+0144 7D14             25     MOV R5, #20
+                      26     
+0146                  27     L_1:
+0146 7CFF             28     MOV R4, #255
+0148 DD01             29     DJNZ R5, L_2
+014A 22               30     RET
+                      31     
+014B                  32     L_2:
+014B DC02             33     DJNZ R4, L_F
+014D 80F7             34     JMP L_1
+                      35     
+014F                  36     L_F:
+014F 3130             37     CALL DELAY_1MS
+0151 80F8             38     JMP L_2
+                      39     
+                      40     
+0153                  41     DELAY_20US:
+0153 7813             42     MOV R0, #13H
+0155 D8FE             43     H3: DJNZ R0, H3
+0157 22               44     RET
+                      45     
+0158                  46     TAKE_INP:
+0158 D293             47     SETB P1.3
+015A D292             48     SETB P1.2
+015C D291             49     SETB P1.1
+015E D290             50     SETB P1.0
+0160 3144             51     CALL DELAY_5S
+0162 D287             52     SETB P0.7
+0164 E590             53     MOV A, P1
+0166 540F             54     ANL A, #0FH
+0168 FA               55     MOV R2, A
+0169 9401             56     SUBB A, #01H
+016B 600F             57     JZ LOOP1
+A51 MACRO ASSEMBLER  NOTES                                                                02/06/2023 15:51:03 PAGE     2
+
+016D EA               58     MOV A, R2
+016E 9403             59     SUBB A, #03H
+0170 6011             60     JZ LOOP2
+0172 EA               61     MOV A, R2
+0173 9407             62     SUBB A, #07H
+0175 6013             63     JZ LOOP3
+0177 EA               64     MOV A, R2
+0178 940F             65     SUBB A, #0FH
+017A 6015             66     JZ LOOP4
+                      67     
+017C                  68     LOOP1:
+017C B287             69     CPL P0.7
+017E 120198           70     LCALL DELAY1
+0181 80F9             71     JMP LOOP1
+                      72     
+0183                  73     LOOP2:
+0183 B287             74     CPL P0.7
+0185 1201A2           75     LCALL DELAY2
+0188 80F9             76     JMP LOOP2
+                      77     
+018A                  78     LOOP3:
+018A B287             79     CPL P0.7
+018C 1201AC           80     LCALL DELAY3
+018F 80F9             81     JMP LOOP3
+                      82     
+0191                  83     LOOP4:
+0191 B287             84     CPL P0.7
+0193 1201B6           85     LCALL DELAY4
+0196 80F9             86     JMP LOOP4
+                      87     
+0198                  88     DELAY1:
+0198 7954             89     MOV R1, #84
+                      90     
+019A                  91     L1:
+019A D901             92     DJNZ R1, LOOP5
+019C 22               93     RET
+                      94     
+019D                  95     LOOP5:
+019D 120153           96     LCALL DELAY_20US
+01A0 80F8             97     JMP L1
+                      98     
+01A2                  99     DELAY2:
+01A2 7949            100     MOV R1, #73
+                     101     
+01A4                 102     L2:
+01A4 D901            103     DJNZ R1, LOOP6
+01A6 22              104     RET
+                     105     
+01A7                 106     LOOP6:
+01A7 120153          107     LCALL DELAY_20US
+01AA 80F8            108     JMP L2
+                     109     
+01AC                 110     DELAY3:
+01AC 7942            111     MOV R1, #66
+                     112     
+01AE                 113     L3:
+01AE D901            114     DJNZ R1, LOOP7
+01B0 22              115     RET
+                     116     
+01B1                 117     LOOP7:
+01B1 120153          118     LCALL DELAY_20US
+01B4 80F8            119     JMP L3
+                     120     
+01B6                 121     DELAY4:
+01B6 793E            122     MOV R1, #62
+                     123     
+A51 MACRO ASSEMBLER  NOTES                                                                02/06/2023 15:51:03 PAGE     3
+
+01B8                 124     L4:
+01B8 D901            125     DJNZ R1, LOOP8
+01BA 22              126     RET
+                     127     
+01BB                 128     LOOP8:
+01BB 120153          129     LCALL DELAY_20US
+01BE 80F8            130     JMP L4
+                     131     
+                     132     END
+A51 MACRO ASSEMBLER  NOTES                                                                02/06/2023 15:51:03 PAGE     4
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+DELAY1 . . . . . .  C ADDR   0198H   A   
+DELAY2 . . . . . .  C ADDR   01A2H   A   
+DELAY3 . . . . . .  C ADDR   01ACH   A   
+DELAY4 . . . . . .  C ADDR   01B6H   A   
+DELAY_1MS. . . . .  C ADDR   0130H   A   
+DELAY_20US . . . .  C ADDR   0153H   A   
+DELAY_250US. . . .  C ADDR   013BH   A   
+DELAY_5S . . . . .  C ADDR   0144H   A   
+H1 . . . . . . . .  C ADDR   013FH   A   
+H2 . . . . . . . .  C ADDR   0134H   A   
+H3 . . . . . . . .  C ADDR   0155H   A   
+L1 . . . . . . . .  C ADDR   019AH   A   
+L2 . . . . . . . .  C ADDR   01A4H   A   
+L3 . . . . . . . .  C ADDR   01AEH   A   
+L4 . . . . . . . .  C ADDR   01B8H   A   
+LOOP1. . . . . . .  C ADDR   017CH   A   
+LOOP2. . . . . . .  C ADDR   0183H   A   
+LOOP3. . . . . . .  C ADDR   018AH   A   
+LOOP4. . . . . . .  C ADDR   0191H   A   
+LOOP5. . . . . . .  C ADDR   019DH   A   
+LOOP6. . . . . . .  C ADDR   01A7H   A   
+LOOP7. . . . . . .  C ADDR   01B1H   A   
+LOOP8. . . . . . .  C ADDR   01BBH   A   
+L_1. . . . . . . .  C ADDR   0146H   A   
+L_2. . . . . . . .  C ADDR   014BH   A   
+L_F. . . . . . . .  C ADDR   014FH   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+P0 . . . . . . . .  D ADDR   0080H   A   
+P1 . . . . . . . .  D ADDR   0090H   A   
+TAKE_INP . . . . .  C ADDR   0158H   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

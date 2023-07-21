@@ -1,0 +1,185 @@
+C51 COMPILER V9.60.7.0   SORTING_SEARCHING                                                 02/27/2023 00:47:36 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE SORTING_SEARCHING
+OBJECT MODULE PLACED IN .\Objects\sorting_searching.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE sorting_searching.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\
+                    -Listings\sorting_searching.lst) TABS(2) OBJECT(.\Objects\sorting_searching.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"
+   3          
+   4          void main(){
+   5   1        int inputs[5],temp,search,searchindex,found,i,j;
+   6   1        lcd_init();
+   7   1        lcd_cmd(0x80);
+   8   1        msdelay(4);
+   9   1        P1 = 0x00;
+  10   1        lcd_write_string("  START PROGRAM ");
+  11   1        msdelay(5000);
+  12   1        
+  13   1        lcd_init();
+  14   1        lcd_cmd(0x80);
+  15   1        msdelay(4);
+  16   1        P1 = 0x0F;
+  17   1        lcd_write_string("   FIRST INPUT  ");
+  18   1        
+  19   1        msdelay(5000);
+  20   1        inputs[0] = P1;
+  21   1        P1 = P1*16;
+  22   1        msdelay(5000);
+  23   1        P1 = 0x00;
+  24   1        msdelay(1000);
+  25   1      
+  26   1        lcd_init();
+  27   1        lcd_cmd(0x80);
+  28   1        msdelay(4);
+  29   1        P1 = 0x0F;
+  30   1        lcd_write_string("   NEXT INPUT   ");
+  31   1        msdelay(5000);
+  32   1        inputs[1] = P1;
+  33   1        P1 = P1*16;
+  34   1        msdelay(5000);
+  35   1        P1 = 0x00;
+  36   1        msdelay(1000);
+  37   1        
+  38   1        lcd_init();
+  39   1        lcd_cmd(0x80);
+  40   1        msdelay(4);
+  41   1        P1 = 0x0F;
+  42   1        lcd_write_string("   NEXT INPUT   ");
+  43   1        msdelay(5000);
+  44   1        inputs[2] = P1;
+  45   1        P1 = P1*16;
+  46   1        msdelay(5000);
+  47   1        P1 = 0x00;
+  48   1        msdelay(1000);
+  49   1        
+  50   1        lcd_init();
+  51   1        lcd_cmd(0x80);
+  52   1        msdelay(4);
+  53   1        P1 = 0x0F;
+  54   1        lcd_write_string("   NEXT INPUT   ");
+C51 COMPILER V9.60.7.0   SORTING_SEARCHING                                                 02/27/2023 00:47:36 PAGE 2   
+
+  55   1        msdelay(5000);
+  56   1        inputs[3] = P1;
+  57   1        P1 = P1*16;
+  58   1        msdelay(5000);
+  59   1        P1 = 0x00;
+  60   1        msdelay(1000);
+  61   1        
+  62   1        lcd_init();
+  63   1        lcd_cmd(0x80);
+  64   1        msdelay(4);
+  65   1        P1 = 0x0F;
+  66   1        lcd_write_string("   NEXT INPUT   ");
+  67   1        msdelay(5000);
+  68   1        inputs[4] = P1;
+  69   1        P1 = P1*16;
+  70   1        lcd_init();
+  71   1        lcd_cmd(0x80);
+  72   1        msdelay(4);
+  73   1        lcd_write_string("   SORTING...   ");
+  74   1        msdelay(5000);
+  75   1        
+  76   1        lcd_init();
+  77   1        lcd_cmd(0x80);
+  78   1        msdelay(4);
+  79   1        lcd_write_string("     SORTING    ");
+  80   1        lcd_cmd(0xC0);
+  81   1        msdelay(4);
+  82   1        P1 = 0x00;
+  83   1        lcd_write_string("    COMPLETED   ");
+  84   1        msdelay(1000);
+  85   1        
+  86   1        for(i=1;i<6;i++)
+  87   1        {
+  88   2          for(j=0;j<4;j++)
+  89   2          {
+  90   3            if(inputs[j] > inputs[j+1])
+  91   3            {
+  92   4              temp = inputs[j];
+  93   4              inputs[j] = inputs[j+1];
+  94   4              inputs[j+1] = temp;
+  95   4            }
+  96   3          }
+  97   2        }
+  98   1        
+  99   1        for(i=0;i<5;i++)
+ 100   1        {
+ 101   2          P1 = 16*inputs[i];
+ 102   2          msdelay(5000);
+ 103   2          P1 = 0x00;
+ 104   2          msdelay(1000);
+ 105   2        }
+ 106   1        
+ 107   1        P1 = 0xFF;
+ 108   1        lcd_init();
+ 109   1        lcd_cmd(0x80);
+ 110   1        msdelay(4);
+ 111   1        lcd_write_string("  NUMBER TO BE  ");
+ 112   1        lcd_cmd(0xC0);
+ 113   1        msdelay(4);
+ 114   1        lcd_write_string("    SEARCHED    ");
+ 115   1        msdelay(5000);
+ 116   1        P1 = P1*16;
+C51 COMPILER V9.60.7.0   SORTING_SEARCHING                                                 02/27/2023 00:47:36 PAGE 3   
+
+ 117   1        P1 = P1/16;
+ 118   1        
+ 119   1        search = P1;
+ 120   1        P1 = 0x00;
+ 121   1        lcd_init();
+ 122   1        msdelay(1000);
+ 123   1        
+ 124   1        found = 0;
+ 125   1        for(i=0;i<5;i++)
+ 126   1        {
+ 127   2          if(inputs[i] == search)
+ 128   2          {
+ 129   3            found = 1;
+ 130   3            searchindex = i;
+ 131   3          }
+ 132   2        }
+ 133   1        
+ 134   1        if(found)
+ 135   1        {
+ 136   2          P1 = 16*(searchindex+1);
+ 137   2          lcd_init();
+ 138   2          lcd_cmd(0x80);
+ 139   2          msdelay(4);
+ 140   2          lcd_write_string("   THE INDEX IS  ");
+ 141   2          msdelay(5000);
+ 142   2        }
+ 143   1        
+ 144   1        if(!found)
+ 145   1        {
+ 146   2          P1 = 0xF0;
+ 147   2          lcd_init();
+ 148   2          lcd_cmd(0x80);
+ 149   2          msdelay(4);
+ 150   2          lcd_write_string("     NUMBER     ");
+ 151   2          lcd_cmd(0xC0);
+ 152   2          msdelay(4);
+ 153   2          lcd_write_string("    NOT FOUND   ");
+ 154   2          msdelay(5000);
+ 155   2        }
+ 156   1        while(1);
+ 157   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    767    ----
+   CONSTANT SIZE    =    188    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      21
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

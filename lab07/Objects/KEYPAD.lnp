@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\keypad_interface.obj" 
+TO ".\Objects\KEYPAD" 
+PRINT(".\Listings\KEYPAD.m51") RAMSIZE(256) 

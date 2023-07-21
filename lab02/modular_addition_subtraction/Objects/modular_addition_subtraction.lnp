@@ -1,0 +1,3 @@
+".\Objects\modular_addition_subtraction.obj" 
+TO ".\Objects\modular_addition_subtraction" 
+PRINT(".\Listings\modular_addition_subtraction.m51") RAMSIZE(256) 

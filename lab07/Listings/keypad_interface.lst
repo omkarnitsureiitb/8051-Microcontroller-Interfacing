@@ -1,0 +1,213 @@
+C51 COMPILER V9.60.7.0   KEYPAD_INTERFACE                                                  03/08/2023 20:56:10 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE KEYPAD_INTERFACE
+OBJECT MODULE PLACED IN .\Objects\keypad_interface.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE keypad_interface.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\L
+                    -istings\keypad_interface.lst) TABS(2) OBJECT(.\Objects\keypad_interface.obj)
+
+line level    source
+
+   1          #include <at89c5131.h>
+   2          #include "lcd.h"
+   3          
+   4          unsigned char password[8]="15A8*D6#";
+   5          code unsigned char row0[]="123A";
+   6          code unsigned char row1[]="456B";
+   7          code unsigned char row2[]="789C";
+   8          code unsigned char row3[]="*0#D";
+   9          unsigned char pass[8];
+  10          char character;
+  11          
+  12          int c, column, d, row, iter=0, b, a, dummy, check,i;
+  13          
+  14          
+  15          int take_input(){
+  16   1        a = 0xF0;
+  17   1        
+  18   1        while(a != 0x0F){
+  19   2          a = P3 & 0x0F;
+  20   2          a = a & 0x0F;
+  21   2        }
+  22   1        
+  23   1        while(a == 0x0F){
+  24   2          a = P3 & 0x0F;
+  25   2        }
+  26   1          
+  27   1        msdelay(20);
+  28   1        a = P3 & 0x0F;
+  29   1        return a;
+  30   1      }
+  31          
+  32          char read(){
+  33   1        int row_id, column_id;
+  34   1        char char1;
+  35   1        row_id = row;
+  36   1        column_id = column;
+  37   1        
+  38   1        if(row == 0){
+  39   2          char1 = row0[column_id];
+  40   2        }
+  41   1        else if(row == 1){
+  42   2          char1 = row1[column_id];
+  43   2        }
+  44   1        else if(row == 2){
+  45   2          char1 = row2[column_id];
+  46   2        }
+  47   1        else{
+  48   2          char1 = row3[column_id];
+  49   2        }
+  50   1        
+  51   1        return char1;
+  52   1      }
+  53          
+  54          void recognize_key(){
+C51 COMPILER V9.60.7.0   KEYPAD_INTERFACE                                                  03/08/2023 20:56:10 PAGE 2   
+
+  55   1        c = b;
+  56   1        b = b & 0x07;
+  57   1        if(b == c){
+  58   2          column = 0;
+  59   2        }
+  60   1          
+  61   1        b = c;
+  62   1        b = b & 0x0B;
+  63   1        if(b == c){
+  64   2          column = 1;
+  65   2        }
+  66   1          
+  67   1        b = c;
+  68   1        b = b & 0x0D;
+  69   1        if(b == c){
+  70   2          column = 2;
+  71   2        }
+  72   1          
+  73   1        b = c;
+  74   1        b = b & 0x0E;
+  75   1        if(b == c){
+  76   2          column = 3;
+  77   2        }
+  78   1      
+  79   1        P3_7 = 1;
+  80   1        P3_6 = 1;
+  81   1        P3_5 = 1;
+  82   1        P3_4 = 0;
+  83   1        d = P3 & 0x0F;
+  84   1        if(d != 0x0F){
+  85   2          row = 0;
+  86   2        }
+  87   1          
+  88   1        P3_7 = 1;
+  89   1        P3_6 = 1;
+  90   1        P3_5 = 0;
+  91   1        P3_4 = 1;
+  92   1        d = P3 & 0x0F;
+  93   1        if(d != 0x0F){
+  94   2          row = 1;
+  95   2        }
+  96   1          
+  97   1        P3_7 = 1;
+  98   1        P3_6 = 0;
+  99   1        P3_5 = 1;
+ 100   1        P3_4 = 1;
+ 101   1        d = P3 & 0x0F;
+ 102   1        if(d != 0x0F){
+ 103   2          row = 2;
+ 104   2        }
+ 105   1          
+ 106   1        P3_7 = 0;
+ 107   1        P3_6 = 1;
+ 108   1        P3_5 = 1;
+ 109   1        P3_4 = 1;
+ 110   1        d = P3 & 0x0F;
+ 111   1        if(d != 0x0F){
+ 112   2          row = 3;
+ 113   2        }
+ 114   1          
+ 115   1        character = read();
+ 116   1        pass[iter] = character;
+C51 COMPILER V9.60.7.0   KEYPAD_INTERFACE                                                  03/08/2023 20:56:10 PAGE 3   
+
+ 117   1        //lcd_cmd(0xC0);
+ 118   1        
+ 119   1        lcd_write_char(character);
+ 120   1        lcd_cmd(0x06);
+ 121   1        dummy = 0;
+ 122   1      }
+ 123            
+ 124          
+ 125          void main(){
+ 126   1      
+ 127   1        lcd_init();
+ 128   1        lcd_cmd(0x80);
+ 129   1        msdelay(4);
+ 130   1        lcd_write_string(" ENTER PASSWORD ");
+ 131   1        msdelay(4);
+ 132   1        lcd_cmd(0xC0);
+ 133   1        P3 = 0x0F;
+ 134   1        a = 0x0F;
+ 135   1        while(a == 0x0F){
+ 136   2          a = P3 & 0x0F;
+ 137   2        }
+ 138   1        
+ 139   1        msdelay(20);
+ 140   1        a = P3 & 0x0F;
+ 141   1        b = a;
+ 142   1        recognize_key();
+ 143   1        
+ 144   1        for(iter = 1; iter < 8; iter++){
+ 145   2          P3 = 0x0F;
+ 146   2          b = take_input();
+ 147   2          
+ 148   2          while(b == 0x0F){
+ 149   3            P3 = 0x0F;
+ 150   3            b = take_input();
+ 151   3          }
+ 152   2          recognize_key();
+ 153   2        }
+ 154   1        check = 0;
+ 155   1        for(i=0;i<8;i++)
+ 156   1        {
+ 157   2          if(pass[i]==password[i])
+ 158   2          {
+ 159   3            check++;
+ 160   3          } 
+ 161   2          else{check=check;}
+ 162   2        }
+ 163   1        if(check == 8){
+ 164   2          lcd_init();
+ 165   2          lcd_cmd(0x80);
+ 166   2          msdelay(4);
+ 167   2          lcd_write_string("Correct Password");
+ 168   2          lcd_cmd(0xC0);
+ 169   2          msdelay(4);
+ 170   2          lcd_write_string(" Access Granted ");
+ 171   2          while(1);
+ 172   2        }
+ 173   1        if(check != 8){
+ 174   2          lcd_init();
+ 175   2          lcd_cmd(0x80);
+ 176   2          msdelay(4);
+ 177   2          lcd_write_string(" Wrong Password ");
+ 178   2          lcd_cmd(0xC0);
+C51 COMPILER V9.60.7.0   KEYPAD_INTERFACE                                                  03/08/2023 20:56:10 PAGE 4   
+
+ 179   2          msdelay(4);
+ 180   2          lcd_write_string("  Access Denied ");
+ 181   2          while(1);
+ 182   2        }
+ 183   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    821    ----
+   CONSTANT SIZE    =    105    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     37       5
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

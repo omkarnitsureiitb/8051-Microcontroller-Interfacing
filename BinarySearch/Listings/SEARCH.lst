@@ -1,0 +1,140 @@
+A51 MACRO ASSEMBLER  SEARCH                                                               02/11/2023 22:00:27 PAGE     1
+
+
+MACRO ASSEMBLER A51 V8.2.7.0
+OBJECT MODULE PLACED IN .\Objects\SEARCH.obj
+ASSEMBLER INVOKED BY: C:\Keil_v5\C51\BIN\A51.EXE SEARCH.asm SET(SMALL) DEBUG PRINT(.\Listings\SEARCH.lst) OBJECT(.\Objec
+                      ts\SEARCH.obj) EP
+
+LOC  OBJ            LINE     SOURCE
+
+0000                   1     ORG 0H
+0000 020100            2     LJMP MAIN
+0100                   3     ORG 100H
+0100                   4     MAIN:
+0100 3130              5     CALL SEARCH
+0102 80FE              6     HERE: SJMP HERE
+0130                   7     ORG 130H
+                       8     
+0130                   9     SEARCH:
+0130 E530             10     MOV A, 30H
+0132 F8               11     MOV R0, A
+0133 E531             12     MOV A, 31H
+0135 FA               13     MOV R2, A
+0136 E532             14     MOV A, 32H
+0138 FC               15     MOV R4, A
+                      16     
+0139                  17     LOOP:
+0139 EA               18     MOV A, R2
+013A C3               19     CLR C
+013B 9401             20     SUBB A, #01H
+013D 6047             21     JZ ONE
+013F EA               22     MOV A, R2
+0140 C3               23     CLR C
+0141 9400             24     SUBB A, #00H
+0143 6049             25     JZ ZERO
+0145 75F002           26     MOV B, #02H
+0148 84               27     DIV AB
+0149 FE               28     MOV R6, A
+014A E5F0             29     MOV A, B
+014C 7002             30     JNZ ODD
+014E 600F             31     JZ EVEN_N
+                      32     
+0150                  33     ODD:
+0150 EE               34     MOV A, R6
+0151 88F0             35     MOV B, R0
+0153 25F0             36     ADD A, B
+0155 F9               37     MOV R1, A
+0156 E7               38     MOV A, @R1
+0157 C3               39     CLR C
+0158 9C               40     SUBB A, R4
+0159 6020             41     JZ FUNC3
+015B 4012             42     JC FUNC1
+015D 5017             43     JNC FUNC2
+                      44     
+015F                  45     EVEN_N:
+015F 1E               46     DEC R6
+0160 EE               47     MOV A, R6
+0161 88F0             48     MOV B, R0
+0163 25F0             49     ADD A, B
+0165 F9               50     MOV R1, A
+0166 E7               51     MOV A, @R1
+0167 C3               52     CLR C
+0168 9C               53     SUBB A, R4
+0169 6010             54     JZ FUNC3
+016B 4011             55     JC FUNC4
+016D 5007             56     JNC FUNC2
+                      57     
+A51 MACRO ASSEMBLER  SEARCH                                                               02/11/2023 22:00:27 PAGE     2
+
+016F                  58     FUNC1:
+016F 09               59     INC R1
+0170 E9               60     MOV A, R1
+0171 F8               61     MOV R0, A
+0172 EE               62     MOV A, R6
+0173 FA               63     MOV R2, A
+0174 80C3             64     JMP LOOP
+                      65     
+                      66     
+0176                  67     FUNC2:
+0176 0E               68     INC R6
+0177 EE               69     MOV A, R6
+0178 FA               70     MOV R2, A
+0179 80BE             71     JMP LOOP
+                      72     
+017B                  73     FUNC3:
+017B 8933             74     MOV 33H, R1
+017D 22               75     RET
+                      76     
+017E                  77     FUNC4:
+017E 09               78     INC R1
+017F E9               79     MOV A, R1
+0180 F8               80     MOV R0, A
+0181 0E               81     INC R6
+0182 EE               82     MOV A, R6
+0183 FA               83     MOV R2, A
+0184 80B3             84     JMP LOOP
+                      85     
+0186                  86     ONE:
+0186 E6               87     MOV A, @R0
+0187 8CF0             88     MOV B, R4
+0189 B5F002           89     CJNE A, B, ZERO
+018C 8004             90     JMP FUNC5
+                      91     
+018E                  92     ZERO:
+018E 75330E           93     MOV 33H, #0EH
+0191 22               94     RET
+                      95     
+0192                  96     FUNC5:
+0192 8833             97     MOV 33H, R0
+0194 22               98     RET
+                      99     
+                     100     END
+A51 MACRO ASSEMBLER  SEARCH                                                               02/11/2023 22:00:27 PAGE     3
+
+SYMBOL TABLE LISTING
+------ ----- -------
+
+
+N A M E             T Y P E  V A L U E   ATTRIBUTES
+
+B. . . . . . . . .  D ADDR   00F0H   A   
+EVEN_N . . . . . .  C ADDR   015FH   A   
+FUNC1. . . . . . .  C ADDR   016FH   A   
+FUNC2. . . . . . .  C ADDR   0176H   A   
+FUNC3. . . . . . .  C ADDR   017BH   A   
+FUNC4. . . . . . .  C ADDR   017EH   A   
+FUNC5. . . . . . .  C ADDR   0192H   A   
+HERE . . . . . . .  C ADDR   0102H   A   
+LOOP . . . . . . .  C ADDR   0139H   A   
+MAIN . . . . . . .  C ADDR   0100H   A   
+ODD. . . . . . . .  C ADDR   0150H   A   
+ONE. . . . . . . .  C ADDR   0186H   A   
+SEARCH . . . . . .  C ADDR   0130H   A   
+ZERO . . . . . . .  C ADDR   018EH   A   
+
+
+REGISTER BANK(S) USED: 0 
+
+
+ASSEMBLY COMPLETE.  0 WARNING(S), 0 ERROR(S)

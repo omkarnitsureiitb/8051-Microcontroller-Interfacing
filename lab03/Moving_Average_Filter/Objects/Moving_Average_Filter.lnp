@@ -1,0 +1,3 @@
+".\Objects\Moving_Average_Filter.obj" 
+TO ".\Objects\Moving_Average_Filter" 
+PRINT(".\Listings\Moving_Average_Filter.m51") RAMSIZE(256) 

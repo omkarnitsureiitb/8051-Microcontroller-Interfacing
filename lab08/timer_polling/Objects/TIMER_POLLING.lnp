@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\timer_polling.obj" 
+TO ".\Objects\TIMER_POLLING" 
+PRINT(".\Listings\TIMER_POLLING.m51") RAMSIZE(256) 

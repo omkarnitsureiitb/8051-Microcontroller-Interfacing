@@ -1,0 +1,4 @@
+".\Objects\STARTUP.obj",
+".\Objects\stopwatch.obj" 
+TO ".\Objects\STOPWATCH" 
+PRINT(".\Listings\STOPWATCH.m51") RAMSIZE(256) 
